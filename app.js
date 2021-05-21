@@ -19,6 +19,9 @@ res.send("hello there");
 });
 
 app.post("/sms",function(req,res){
+    console.log(req);
+    console.log("this end of req and begining of res");
+    console.log(res);
     client.messages
       .create({
          from: 'whatsapp:+14155238886',
