@@ -25,7 +25,7 @@ app.post("/sms",function(req,res){
       .create({
          from: 'whatsapp:+14155238886',
          body: 'Hello there i did recieve your message but not going to forward it back to you',
-         to: 'whatsapp:+917022191900'
+         to: 'whatsapp:+'+req.body.WaId
        })
       .then(message => console.log(message))
       .done();
