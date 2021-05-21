@@ -19,8 +19,14 @@ res.send("hello there");
 });
 
 app.post("/sms",function(req,res){
-    const msg = req.body.body;
-    Response.message("lol");
+    client.messages
+      .create({
+         from: 'whatsapp:+14155238886',
+         body: 'Hello there i did recieve your message but not going to forward it back to you',
+         to: 'whatsapp:+917022191900'
+       })
+      .then(message => console.log(message))
+      .done();
 });
 
 app.listen(process.env.PORT||3000,function(){
