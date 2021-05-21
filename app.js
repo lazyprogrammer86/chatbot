@@ -19,7 +19,7 @@ res.send("hello there");
 });
 
 app.post("/sms",function(req,res){
-    console.log(req.body);
+    console.log(req.body.WaId);
     console.log("this end of req and begining of res");
     client.messages
       .create({
