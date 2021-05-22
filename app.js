@@ -5,6 +5,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
+const dialogflow = require('@google-cloud/dialogflow');
+const uuid = require('uuid');
 const app = express();
 
 
@@ -59,24 +61,80 @@ app.post("/register", function(req, res) {
                 res.render("success");
             }
         } else {
-            res.render("failure",{failureText:"looks like there was an error in the process please check the number you have entered and try again"});
+            res.render("failure", {
+                failureText: "looks like there was an error in the process please check the number you have entered and try again"
+            });
         }
 
     });
 
 });
 
+// ////////////////////////// whatsapp sending opertations/////////////////////////
+
+
 app.post("/sms", function(req, res) {
-    console.log(req.body);
-    console.log("this end of req and begining of res");
-    client.messages
-        .create({
-            from: 'whatsapp:+14155238886',
-            body: 'Hello there i did recieve your message but not going to forward it back to you',
-            to: 'whatsapp:+917022191900'
-        })
-        .then(message => console.log(message))
-        .done();
+
+    async function runSample(projectId = 'jokes-onla') {
+        // A unique identifier for the given session
+        const sessionId = uuid.v4();
+
+        // Create a new session
+        const sessionClient = new dialogflow.SessionsClient({
+            keyFilename: __dirname + "/jokes-onla-9c37d26737f4.json"
+        });
+        const sessionPath = sessionClient.projectAgentSessionPath(projectId, sessionId);
+
+        // The text query request.
+        const request = {
+            session: sessionPath,
+            queryInput: {
+                text: {
+                    text: 'tell me a joke',
+                    languageCode: 'en-US',
+                },
+            },
+        };
+
+
+        const responses = await sessionClient.detectIntent(request);
+        console.log('Detected response');
+        const result = responses[0].queryResult;
+        console.log(result.queryText);
+        console.log(result.fulfillmentText);
+        if (result.intent) {
+            client.messages
+                .create({
+                    from: 'whatsapp:+14155238886',
+                    body: 'you said : ' + req.body.Body,
+                    to: 'whatsapp:+91'+req.body.WaId
+                })
+                .then(message => {})
+            client.messages
+                .create({
+                    from: 'whatsapp:+14155238886',
+                    body: result.fulfillmentText,
+                    to: 'whatsapp:+91'+req.body.WaId
+                })
+                .then(message => {})
+                .done();
+        } else {
+            client.messages
+                .create({
+                    from: 'whatsapp:+14155238886',
+                    body: 'couldnt understand please enter valid key',
+                    to: 'whatsapp:+917022191900'
+                })
+                .then(message => {})
+        }
+    }
+
+    runSample()
+
+
+
+
+
 });
 
 app.listen(process.env.PORT || 3000, function() {
