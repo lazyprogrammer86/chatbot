@@ -15,12 +15,12 @@ app.use(bodyParser.urlencoded({
 app.set("view engine", 'ejs');
 
 
-mongoose.connect("mongodb://localhost:27017/whatsappDB", {
+mongoose.connect("mongodb+srv://admin-adarsh:admin-adarsh@todolist.ibwmb.mongodb.net/whatsappDB?retryWrites=true", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 const client = require('twilio')('AC22436ed4ee584c98915c5e952d711510', '4c5440cacbaad12e61243b592d2ff80d');
-//const whatsappUrl = "whatsapp://send?phone=+14155238886&text=join dug-sick."
+
 
 const credsSchema = new mongoose.Schema({
     name: String,
