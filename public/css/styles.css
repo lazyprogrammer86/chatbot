@@ -1,0 +1,91 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+body{
+    background-image: url("/images/background_home.png");
+}
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+.form-floating{
+    margin:3px 0;
+    border-radius:5px;
+}
+
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="tel"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/********** Home page********/
+img:first-of-type{
+    border-radius:12rem;
+}
+
+form button{
+    margin-top: 2rem;
+}
+/**************failure page****************/
+.failure{
+position: relative;
+left:25%;
+width: 50%;
+height: 60%;
+}
+.failure a, .failure p{
+margin-top:5%;
+}
+/************Sucsess page********/
+.success{
+    position:relative;
+    left: 13%;
+    width:75%;
+    padding:0%;
+background-image: url("/images/background_home.png");
+}
+.success h5, .success h2{
+display: inline-block;
+}
+
+.success h1:not(.fw-bold){
+     font-size:1.5rem;
+     font-weight:bold;
+}
+.success .btn{
+    margin-top:5%;
+}
+ul{
+    list-style-type: none;
+    margin-top: 5%;
+}
+li{
+    padding :0.5rem;
+}

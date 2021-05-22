@@ -1,0 +1,24 @@
+<%- include("partials/header")-%>
+
+
+<main class="form-signin">
+  <form action="/register" method="post">
+    <img class="mb-4" src="images/title.png" alt="whatsapp jokes" width="200" height="200">
+    <h1 class="h3 mb-3 fw-normal"><%=title%></h1>
+
+    <div class="form-floating">
+      <input type="Text" name="name" class="form-control" placeholder="User Name" req>
+      <label>Name</label>
+    </div>
+    <div class="form-floating">
+      <input type="tel" name="phNumber" class="form-control" placeholder="whatsapp number" required>
+      <label>Phone Number</label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+
+  </form>
+  <p class="mt-5 mb-3 text-muted">© 2021 by Dr.Bruhh</p>
+</main>
+
+
+<%- include("partials/footer")-%>
