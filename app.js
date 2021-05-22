@@ -76,7 +76,7 @@ app.post("/register", function(req, res) {
 app.post("/sms", function(req, res) {
 
 
-     async function runSample(projectId = 'jokes-onla') {
+    async function runSample(projectId = process.env.PROJECT_ID) {
         // A unique identifier for the given session
         const sessionId = uuid.v4();
 
@@ -91,7 +91,7 @@ app.post("/sms", function(req, res) {
             session: sessionPath,
             queryInput: {
                 text: {
-                    text:req.body.Body,
+                    text: "hello there!",
                     languageCode: 'en-US',
                 },
             },
@@ -99,44 +99,30 @@ app.post("/sms", function(req, res) {
 
 
         const responses = await sessionClient.detectIntent(request);
-        console.log('Detected response');
+        //console.log('Detected response');
         const result = responses[0].queryResult;
-        console.log(result  );
-        console.log('??????????????????????????????????????????????????????');
-        console.log('??????????????????????????????????????????????????????');
-        console.log('??????????????????????????????????????????????????????');
-        console.log('??????????????????????????????????????????????????????');
-        console.log('??????????????????????????????????????????????????????');
-        console.log(result.fulfillmentText);
+        //console.log(result);
+    
+        //console.log(result.fulfillmentText);
+
         if (result.intent) {
-            // client.messages
-            //     .create({
-            //         from: 'whatsapp:+14155238886',
-            //         body: 'you said : ' + req.body.Body,
-            //         to: 'whatsapp:+'+req.body.WaId
-            //     })
-            //     .then(message => {})
-            client.messages
-                .create({
-                    from: 'whatsapp:+14155238886',
-                    body: "'"+req.body.WaId + "' texted '" + req.body.Body+"'",
-                    to: 'whatsapp:+917022191900'
-                })
-                .then(message => {})
+            //console.log(result.fulfillmentText);
+
             client.messages
                 .create({
                     from: 'whatsapp:+14155238886',
                     body: result.fulfillmentText,
-                    to: 'whatsapp:+'+req.body.WaId
+                    to: 'whatsapp:+' + req.body.WaId
                 })
                 .then(message => {})
                 .done();
         } else {
+
             client.messages
                 .create({
                     from: 'whatsapp:+14155238886',
-                    body: 'couldnt understand please enter valid key',
-                    to: 'whatsapp:+'+req.body.WaId
+                    body: 'couldnt understand please send valid text',
+                    to: 'whatsapp:+' + req.body.WaId
                 })
                 .then(message => {})
                 .done();
@@ -144,11 +130,6 @@ app.post("/sms", function(req, res) {
     }
 
     runSample()
-
-
-
-
-
 });
 
 app.listen(process.env.PORT || 3000, function() {
