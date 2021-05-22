@@ -75,7 +75,7 @@ app.post("/register", function(req, res) {
 
 app.post("/sms", function(req, res) {
 
-    console.log(req.body);
+
      async function runSample(projectId = 'jokes-onla') {
         // A unique identifier for the given session
         const sessionId = uuid.v4();
@@ -104,18 +104,18 @@ app.post("/sms", function(req, res) {
         //console.log(result.queryText);
         //console.log(result.fulfillmentText);
         if (result.intent) {
-            client.messages
-                .create({
-                    from: 'whatsapp:+14155238886',
-                    body: 'you said : ' + req.body.Body,
-                    to: 'whatsapp:+91'+req.body.WaId
-                })
-                .then(message => {})
+            // client.messages
+            //     .create({
+            //         from: 'whatsapp:+14155238886',
+            //         body: 'you said : ' + req.body.Body,
+            //         to: 'whatsapp:+'+req.body.WaId
+            //     })
+            //     .then(message => {})
             client.messages
                 .create({
                     from: 'whatsapp:+14155238886',
                     body: result.fulfillmentText,
-                    to: 'whatsapp:+91'+req.body.WaId
+                    to: 'whatsapp:+'+req.body.WaId
                 })
                 .then(message => {})
                 .done();
@@ -124,9 +124,10 @@ app.post("/sms", function(req, res) {
                 .create({
                     from: 'whatsapp:+14155238886',
                     body: 'couldnt understand please enter valid key',
-                    to: 'whatsapp:+91'+req.body.WaId
+                    to: 'whatsapp:+'+req.body.WaId
                 })
                 .then(message => {})
+                .done();
         }
     }
 
