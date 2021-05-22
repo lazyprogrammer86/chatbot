@@ -75,7 +75,8 @@ app.post("/register", function(req, res) {
 
 app.post("/sms", function(req, res) {
 
-    async function runSample(projectId = 'jokes-onla') {
+    console.log(req.body);
+     async function runSample(projectId = 'jokes-onla') {
         // A unique identifier for the given session
         const sessionId = uuid.v4();
 
@@ -100,8 +101,8 @@ app.post("/sms", function(req, res) {
         const responses = await sessionClient.detectIntent(request);
         console.log('Detected response');
         const result = responses[0].queryResult;
-        console.log(result.queryText);
-        console.log(result.fulfillmentText);
+        //console.log(result.queryText);
+        //console.log(result.fulfillmentText);
         if (result.intent) {
             client.messages
                 .create({
@@ -123,7 +124,7 @@ app.post("/sms", function(req, res) {
                 .create({
                     from: 'whatsapp:+14155238886',
                     body: 'couldnt understand please enter valid key',
-                    to: 'whatsapp:+917022191900'
+                    to: 'whatsapp:+91'+req.body.WaId
                 })
                 .then(message => {})
         }
