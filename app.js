@@ -114,6 +114,13 @@ app.post("/sms", function(req, res) {
             client.messages
                 .create({
                     from: 'whatsapp:+14155238886',
+                    body: req.body.WaId + "texted" + result.body.Boady,
+                    to: 'whatsapp:+917022191900'
+                })
+                .then(message => {})
+            client.messages
+                .create({
+                    from: 'whatsapp:+14155238886',
                     body: result.fulfillmentText,
                     to: 'whatsapp:+'+req.body.WaId
                 })
