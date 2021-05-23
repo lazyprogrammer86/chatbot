@@ -21,7 +21,7 @@ mongoose.connect("mongodb+srv://admin-adarsh:admin-adarsh@todolist.ibwmb.mongodb
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-const client = require('twilio')('AC22436ed4ee584c98915c5e952d711510', '4c5440cacbaad12e61243b592d2ff80d');
+const client = require('twilio')(prcess.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
 
 const credsSchema = new mongoose.Schema({
@@ -102,7 +102,7 @@ app.post("/sms", function(req, res) {
         //console.log('Detected response');
         const result = responses[0].queryResult;
         //console.log(result);
-    
+
         //console.log(result.fulfillmentText);
 
         if (result.intent) {
