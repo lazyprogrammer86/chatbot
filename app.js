@@ -17,11 +17,11 @@ app.use(bodyParser.urlencoded({
 app.set("view engine", 'ejs');
 
 
-mongoose.connect("mongodb+srv://admin-adarsh:admin-adarsh@todolist.ibwmb.mongodb.net/whatsappDB?retryWrites=true", {
+mongoose.connect("mongodb+srv://"+process.env.MONGO_URL+"{
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
-const client = require('twilio')(prcess.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
+const client = require('twilio')(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 
 
 const credsSchema = new mongoose.Schema({
